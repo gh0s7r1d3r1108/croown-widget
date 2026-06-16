@@ -91,10 +91,9 @@ document.getElementById("minus").onclick = () => { count = Math.max(0, count-1);
 document.getElementById("reset").onclick = () => { count = 0; update(); };
 
 document.addEventListener("keydown", (e) => {
-  if (e.key === "+") count++;
-  if (e.key === "-") count = Math.max(0, count-1);
-  if (e.key.toLowerCase() === "r") count = 0;
-  update();
+  if (e.key === "plus") { count++; update(); }
+  if (e.key === "minus") { count = Math.max(0, count-1); update(); }
+  if (e.key === "reset") { count = 0; update(); }
 });
 
 update();
