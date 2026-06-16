@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Fortnite Crown Counter</title>
+
+<style>
+body {
+  margin: 0;
+  background: transparent;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+}
+
+#widget {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  padding: 14px 18px;
+  background: rgba(0,0,0,0.45);
+  border-radius: 18px;
+  backdrop-filter: blur(8px);
+}
+
+#crown {
+  width: 72px;
+  height: auto;
+  filter: drop-shadow(0 0 10px gold);
+}
+
+#count {
+  font-size: 56px;
+  font-weight: 900;
+  color: gold;
+  text-shadow: 0 0 10px black;
+  min-width: 70px;
+  text-align: center;
+}
+
+#buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+button {
+  border: none;
+  border-radius: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#plus { background:#2ecc71; color:white; }
+#minus { background:#e74c3c; color:white; }
+#reset { background:#f1c40f; color:black; }
+</style>
+</head>
+
+<body>
+
+<div id="widget">
+  <!-- YOUR CROWN IMAGE -->
+  <img id="crown" src="crown.png">
+
+  <div id="count">0</div>
+
+  <div id="buttons">
+    <button id="plus">+1</button>
+    <button id="minus">-1</button>
+    <button id="reset">Reset</button>
+  </div>
+</div>
+
+<script>
+let count = parseInt(localStorage.getItem("crown_count") || "0");
+const countEl = document.getElementById("count");
+
+function update() {
+  countEl.innerText = count;
+  localStorage.setItem("crown_count", count);
+}
+
+document.getElementById("plus").onclick = () => { count++; update(); };
+document.getElementById("minus").onclick = () => { count = Math.max(0, count-1); update(); };
+document.getElementById("reset").onclick = () => { count = 0; update(); };
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "+") count++;
+  if (e.key === "-") count = Math.max(0, count-1);
+  if (e.key.toLowerCase() === "r") count = 0;
+  update();
+});
+
+update();
+</script>
+
+</body>
+</html>
